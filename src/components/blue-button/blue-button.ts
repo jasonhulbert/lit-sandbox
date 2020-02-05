@@ -5,13 +5,13 @@ import {
     customElement,
     TemplateResult
 } from 'lit-element';
-import _styles from './blue-button.scss';
+import stylesheet from './blue-button.scss';
 
 @customElement('blue-button')
 export class BlueButton extends LitElement {
-    @property() theme = 'blue';
+    @property() theme = 'default';
 
-    styles = html`<style>${_styles.toString()}</style>`;
+    styles = html`<style>${stylesheet.toString()}</style>`;
 
     render(): TemplateResult {
         return html`
