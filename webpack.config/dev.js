@@ -3,6 +3,10 @@ const { config, paths } = require('./base');
 
 module.exports = {
     ...config,
+    entry: {
+        ...config.entry,
+        'demo': './demo/blue-demo'
+    },
     devtool: 'cheap-module-eval-source-map',
     devServer: {
         contentBase: paths.DIST,
