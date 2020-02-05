@@ -1,0 +1,46 @@
+{
+  "name": "lit-sandbox",
+  "version": "0.0.1",
+  "description": "A lit-element sandbox",
+  "main": "index.js",
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.4.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.8.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "lit-element": "^2.2.1",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "rimraf": "^3.0.1",
+    "sass-loader": "^8.0.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.2"
+  },
+  "scripts": {
+    "test": "echo \"NO TESTS! :(\"",
+    "build": "npm run clean && npm run build:webpack",
+    "start": "npm run clean && npm run start:webpack",
+    "build:webpack": "NODE_ENV=production webpack --config ./webpack.config/prod.js",
+    "start:webpack": "NODE_ENV=development webpack-dev-server --config ./webpack.config/dev.js",
+    "clean": "rimraf ./dist && mkdir ./dist"
+  },
+  "keywords": [
+    "lit-element",
+    "typescript",
+    "web-components",
+    "webpack"
+  ],
+  "author": "jasonhulbert@github",
+  "license": "ISC"
+}
