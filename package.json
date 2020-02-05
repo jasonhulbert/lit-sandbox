@@ -11,6 +11,7 @@
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.0",
     "css-loader": "^3.4.2",
     "cssnano": "^4.1.10",
     "dart-sass": "^1.25.0",
@@ -32,9 +33,9 @@
     "test": "echo \"NO TESTS! :(\"",
     "build": "npm run clean && npm run build:webpack",
     "start": "npm run clean && npm run start:webpack",
-    "build:webpack": "NODE_ENV=production webpack --config ./webpack.config/prod.js",
-    "start:webpack": "NODE_ENV=development webpack-dev-server --config ./webpack.config/dev.js",
-    "clean": "rimraf ./dist && mkdir ./dist"
+    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config/prod.js",
+    "start:webpack": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config/dev.js",
+    "clean": "rimraf \"dist\""
   },
   "keywords": [
     "lit-element",
