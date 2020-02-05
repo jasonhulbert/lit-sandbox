@@ -1,7 +1,5 @@
 const { resolve } = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
-const cssnano = require('cssnano');
 
 const paths = {
     NODE_MODULES: resolve('./', 'node_modules'),
@@ -48,14 +46,15 @@ module.exports = {
                         options: {
                             ident: 'postcss',
                             plugins: () => [
-                                postcssPresetEnv(),
-                                cssnano()
+                                require('postcss-preset-env')(),
+                                require('cssnano')()
                             ]
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
+                            implementation: require('dart-sass'),
                             sourceMap: true
                         }
                     }
