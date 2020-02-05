@@ -5,7 +5,7 @@ module.exports = {
     ...config,
     entry: {
         ...config.entry,
-        'demo': './demo/blue-demo'
+        'demo': './demo/blue-demo.ts'
     },
     devtool: 'cheap-module-eval-source-map',
     devServer: {
@@ -15,8 +15,9 @@ module.exports = {
     plugins: [
         ...config.plugins,
         new HtmlWebpackPlugin({
+            contentBase: `${paths.DIST}demo`,
             template: `${paths.SRC}/demo/index.html`,
-            filename: 'index.html',
+            filename: 'demo/index.html',
             chunks: ['vendors', 'bundle']
         })
     ]

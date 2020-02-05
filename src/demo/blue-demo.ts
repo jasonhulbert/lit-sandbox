@@ -6,7 +6,14 @@ import './blue-demo-nav';
 export class BlueDemo extends LitElement {
     render(): TemplateResult {
         return html`
-            <blue-demo-frame></blue-demo-frame>
+            <div class="wrap">
+                <div class="nav">
+                    <blue-demo-nav></blue-demo-frame>
+                </div>
+                <div class="frame">
+                    <blue-demo-frame></blue-demo-frame>
+                </div>
+            </div>
         `;
     }
 }
