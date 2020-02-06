@@ -1,5 +1,8 @@
 const { resolve } = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const mode = process.env.NODE_ENV || 'development';
 
 const paths = {
     NODE_MODULES: resolve('./', 'node_modules'),
@@ -12,58 +15,74 @@ const componentEntries = {
     'blue-card': './components/blue-card/blue-card.ts'
 };
 
+const demoEntries = {
+    demo: './demo/blue-demo.ts'
+};
+
 module.exports = {
     paths,
     config: {
-        mode: process.env.NODE_ENV || 'development',
+        mode,
         context: paths.SRC,
         entry: {
             ...componentEntries,
-            'bundle': Object.values(componentEntries)
+            ...demoEntries,
+            bundle: Object.values(componentEntries)
         },
-        resolve: {
-            extensions: ['.ts', '.js', '.json']
-        },
+        resolve: { extensions: ['.ts', '.js', '.json'] },
         module: {
-            rules: [{
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            }, {
-                test: /\.html$/,
-                use: 'html-loader'
-            }, {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: [
+                        {
+                            loader: 'ts-loader',
+                            options: {}
                         }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: () => [
-                                require('postcss-preset-env')(),
-                                require('cssnano')()
-                            ]
+                    ],
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.html$/,
+                    use: 'html-loader'
+                },
+                {
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                sourceMap: !!(mode === 'development')
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                ident: 'postcss',
+                                sourceMap: !!(mode === 'development'),
+                                plugins: () => [require('postcss-preset-env')(), require('cssnano')()]
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                implementation: require('dart-sass'),
+                                sourceMap: !!(mode === 'development')
+                            }
                         }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            implementation: require('dart-sass'),
-                            sourceMap: true
-                        }
-                    }
-                ]
-            }]
+                    ]
+                }
+            ]
         },
         output: {
             path: paths.DIST,
-            filename: '[name].js'
+            chunkFilename: '[name].js',
+            filename: chunkData => {
+                let filename = '[name].js';
+                if (/^demo$/.test(chunkData.chunk.name)) filename = 'demo/[name].js';
+                return filename;
+            }
         },
         optimization: {
             splitChunks: {
@@ -78,14 +97,26 @@ module.exports = {
                         test: /[\\/]node_modules[\\/]/
                     }
                 }
-            },
+            }
         },
         plugins: [
-            new CopyWebpackPlugin([{
-                from: `${paths.NODE_MODULES}/@webcomponents/webcomponentsjs/webcomponents-bundle.js`,
-                to: `${paths.DIST}/polyfills/webcomponents-bundle.js`,
-                toType: 'file'
-            }])
+            new HtmlWebpackPlugin({
+                template: `${paths.SRC}/demo/index.html`,
+                filename: 'demo/index.html',
+                chunks: ['vendors', 'bundle', 'demo']
+            }),
+            new HtmlWebpackPlugin({
+                template: `${paths.SRC}/demo/index.demo.html`,
+                filename: 'demo/index.demo.html',
+                chunks: ['vendors', 'bundle']
+            }),
+            new CopyWebpackPlugin([
+                {
+                    from: `${paths.NODE_MODULES}/@webcomponents/webcomponentsjs/webcomponents-bundle.*`,
+                    to: `${paths.DIST}/polyfills/[name].[ext]`,
+                    toType: 'template'
+                }
+            ])
         ]
     }
 };

@@ -1,21 +1,19 @@
-import {
-    LitElement,
-    html,
-    property,
-    customElement,
-    TemplateResult
-} from 'lit-element';
+import { LitElement, html, css, property, customElement, TemplateResult, CSSResult, unsafeCSS } from 'lit-element';
+
 import stylesheet from './blue-button.scss';
 
 @customElement('blue-button')
 export class BlueButton extends LitElement {
     @property() theme = 'default';
 
-    styles = html`<style>${stylesheet.toString()}</style>`;
+    static get styles(): CSSResult {
+        return css`
+            ${unsafeCSS(stylesheet.toString())}
+        `;
+    }
 
     render(): TemplateResult {
         return html`
-            ${this.styles}
             <button>
                 <slot></slot>
             </button>

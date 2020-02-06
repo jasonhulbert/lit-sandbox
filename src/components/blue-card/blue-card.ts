@@ -1,17 +1,15 @@
-import {
-    LitElement,
-    html,
-    property,
-    customElement,
-    TemplateResult
-} from 'lit-element';
+import { LitElement, html, property, customElement, TemplateResult, CSSResult, css, unsafeCSS } from 'lit-element';
 import stylesheet from './blue-card.scss';
 
 @customElement('blue-card')
 export class BlueCard extends LitElement {
     @property() theme = 'default';
 
-    styles = html`<style>${stylesheet.toString()}</style>`;
+    static get styles(): CSSResult {
+        return css`
+            ${unsafeCSS(stylesheet)}
+        `;
+    }
 
     render(): TemplateResult {
         return html`

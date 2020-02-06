@@ -3,21 +3,14 @@
         "ecmaVersion": 2018
     },
     "env": {
-        "es6": true
+        "browser": true,
+        "node": true
     },
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "plugin:prettier/recommended"
     ],
-    "rules": {
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    },
+    "rules": { },
     "globals": {
         "process": true,
         "require": true,
@@ -32,12 +25,15 @@
             ],
             "parser": "@typescript-eslint/parser",
             "plugins": [
+                "lit",
                 "@typescript-eslint"
             ],
             "extends": [
                 "eslint:recommended",
+                "plugin:lit/recommended",
                 "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended"
+                "plugin:@typescript-eslint/recommended",
+                "plugin:prettier/recommended"
             ]
         }
     ]
