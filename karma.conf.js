@@ -12,13 +12,6 @@ module.exports = config => {
         // npm run test -- --grep test/bar/*
             { pattern: config.grep ? config.grep : 'src/components/**/*.test.ts', type: 'module' },
         ],
-        plugins: [
-            require.resolve('@open-wc/karma-esm'),
-            require.resolve('karma-mocha'),
-            require.resolve('karma-chai')
-        ],
-        frameworks: ['esm', 'mocha', 'chai'],
-
         // see the karma-esm docs for all options
         esm: {
             // if you are using 'bare module imports' you will need this option
