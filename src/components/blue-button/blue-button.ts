@@ -5,18 +5,21 @@ import {
     customElement,
     TemplateResult
 } from 'lit-element';
-import stylesheet from './blue-button.scss';
+//import stylesheet from './blue-button.scss';
 
 @customElement('blue-button')
 export class BlueButton extends LitElement {
     @property() theme = 'default';
+    @property({type: Boolean, reflect: true}) disabled = false;
 
-    styles = html`<style>${stylesheet.toString()}</style>`;
+    styles = html`<style></style>`;
 
     render(): TemplateResult {
         return html`
             ${this.styles}
-            <button>
+            <button
+                id="button"
+                ?disabled="${this.disabled}">
                 <slot></slot>
             </button>
         `;
