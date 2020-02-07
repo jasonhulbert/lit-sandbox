@@ -1,4 +1,4 @@
-export type TextFieldType =
+export type InputType =
     | 'text'
     | 'search'
     | 'tel'
@@ -13,3 +13,5 @@ export type TextFieldType =
     | 'number'
     | 'color'
     | 'countdown';
+
+export type ValidationState = 'success' | 'warning' | 'error';

@@ -1,19 +1,9 @@
-import {
-    LitElement,
-    html,
-    css,
-    property,
-    customElement,
-    TemplateResult,
-    CSSResult,
-    unsafeCSS,
-    query
-} from 'lit-element';
+import { LitElement, html, css, property, customElement, TemplateResult, CSSResult, unsafeCSS } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import uuid from 'uuid/v4';
 
 import stylesheet from './blue-input.scss';
-import { TextFieldType } from './types';
+import { InputType, ValidationState } from './types';
 
 @customElement('blue-input')
 export class BlueInput extends LitElement {
@@ -21,16 +11,20 @@ export class BlueInput extends LitElement {
 
     @property({ type: String }) value = '';
     @property({ type: String }) name = '';
-    @property({ type: String }) type: TextFieldType = 'text';
+    @property({ type: String }) type: InputType = 'text';
     @property({ type: String }) placeholder = '';
-    @property({ type: String }) required = '';
+    @property({ type: Boolean }) required = false;
     @property({ type: Boolean }) disabled = false;
     @property({ type: Boolean }) error = false;
     @property({ type: Number }) maxlength = -1;
-    @property({ type: String }) validationState = '';
+    @property({ type: String }) validationState: ValidationState;
     @property({ type: String }) validationMessage = '';
 
-    @query('input') input: HTMLInputElement;
+    @property({ reflect: false }) currentCount: number;
+
+    firstUpdated(): void {
+        this.currentCount = this.maxlength;
+    }
 
     static get styles(): CSSResult {
         return css`
@@ -38,22 +32,23 @@ export class BlueInput extends LitElement {
         `;
     }
 
-    private containerClasses = classMap({
+    protected containerClasses = classMap({
         container: true,
         disabled: this.disabled
     });
 
-    private labelClasses = classMap({
+    protected labelClasses = classMap({
         [`validation-state-${this.validationState}`]: this.validationState !== undefined,
         ['label-error']: this.error
     });
 
-    private inputClasses = classMap({
+    protected inputClasses = classMap({
         [`validation-state-${this.validationState}`]: this.validationState !== undefined,
         error: this.error
     });
 
     renderRequiredSpan(): TemplateResult | undefined {
+        console.log('required', this.required);
         if (this.required) {
             return html`
                 <span class="required">*</span>
@@ -63,16 +58,17 @@ export class BlueInput extends LitElement {
         return undefined;
     }
 
-    renderCountdown(): TemplateResult | undefined {
-        if (this.type === 'countdown' && this.maxlength) {
-            return html`
-                <div class="countdown-container">
-                    <span>(${this.maxlength - this.input.value.length})</span>
-                </div>
-            `;
-        }
+    renderCountdown(): TemplateResult {
+        return html`
+            <div class="countdown-container">
+                <span>(${this.currentCount})</span>
+            </div>
+        `;
+    }
 
-        return undefined;
+    handleInput(event: any): void {
+        console.log('event', event);
+        this.currentCount = this.maxlength - event.target.value.length;
     }
 
     render(): TemplateResult {
@@ -90,11 +86,12 @@ export class BlueInput extends LitElement {
                         class="${this.inputClasses}"
                         name="${this.name}"
                         type="${this.type}"
-                        value="${this.value}"
+                        .value="${this.value}"
                         placeholder="${this.placeholder}"
                         ?required="${this.required}"
                         ?disabled="${this.disabled}"
                         maxlength="${this.maxlength}"
+                        @input="${this.handleInput}"
                     />
                     ${this.renderCountdown()}
                 </div>
