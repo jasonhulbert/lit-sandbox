@@ -1,0 +1,15 @@
+export type TextFieldType =
+    | 'text'
+    | 'search'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'password'
+    | 'date'
+    | 'month'
+    | 'week'
+    | 'time'
+    | 'datetime-local'
+    | 'number'
+    | 'color'
+    | 'countdown';

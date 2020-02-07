@@ -10,6 +10,11 @@ const demos: DemoModules = {
         title: 'Card',
         moduleLoader: (): Promise<DemoModule> =>
             import(/* webpackChunkName: "demo/blue-card.demo" */ './blue-card.demo')
+    },
+    input: {
+        title: 'Input',
+        moduleLoader: (): Promise<DemoModule> =>
+            import(/* webpackChunkName: "demo/blue-input.demo" */ './blue-input.demo')
     }
 };
 

@@ -1,27 +1,25 @@
 {
     "compilerOptions": {
-      "target": "es2017",
-      "module": "esnext",
-      "moduleResolution": "node",
-      "lib": ["esnext.array", "esnext", "es2017", "dom"],
-      "declaration": false,
-      "declarationMap": false,
-      "sourceMap": true,
-      "inlineSources": true,
-      "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "outDir": "./",
-      "experimentalDecorators": true,
-      "strictPropertyInitialization": false
+        "target": "es2017",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "lib": ["esnext.array", "esnext", "es2017", "dom"],
+        "declaration": false,
+        "declarationMap": false,
+        "sourceMap": true,
+        "inlineSources": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "outDir": "./",
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "allowSyntheticDefaultImports": true
     },
-    "include": [
-      "_types/**/*.ts",
-      "src/**/*.ts"
-    ],
+    "include": ["_types/**/*.ts", "src/**/*.ts"],
     "exclude": []
-  }
+}
