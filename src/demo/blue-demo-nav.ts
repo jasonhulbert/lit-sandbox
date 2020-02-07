@@ -3,9 +3,7 @@ import { DemoModules } from './types';
 
 @customElement('blue-demo-nav')
 export class BlueDemoNav extends LitElement {
-    @property({
-        type: Object
-    })
+    @property({ type: Object })
     demoModules: DemoModules;
 
     static get styles(): CSSResult {
@@ -41,8 +39,15 @@ export class BlueDemoNav extends LitElement {
                 text-decoration: none;
                 line-height: 1.1;
                 color: royalblue;
+                white-space: nowrap;
             }
         `;
+    }
+
+    constructor() {
+        super();
+
+        this.demoModules = {};
     }
 
     render(): TemplateResult {

@@ -54,6 +54,7 @@ export class BlueDemo extends LitElement {
             }
 
             .frame {
+                position: relative;
                 flex: 1 1 80%;
             }
         `;
