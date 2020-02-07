@@ -1,6 +1,6 @@
 import { LitElement, html, css, property, customElement, TemplateResult, CSSResult } from 'lit-element';
 
-import { style } from './blue-button.css';
+import { style } from './blue-button-css';
 
 @customElement('blue-button')
 export class BlueButton extends LitElement {

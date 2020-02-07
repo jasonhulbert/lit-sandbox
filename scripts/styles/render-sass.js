@@ -11,7 +11,7 @@ const asyncWriteFile = promisify(writeFile);
 
 module.exports = async file => {
     const result = await asyncSassRender({ file, outputStyle: 'compressed' });
-    const outFile = `${dirname(file)}/${basename(file, '.scss')}.css.ts`;
+    const outFile = `${dirname(file)}/${basename(file, '.scss')}-css.ts`;
     const template = await asyncReadFile(cssTmpl, 'utf-8');
     const match = cssTmplContentPattern.exec(template);
 

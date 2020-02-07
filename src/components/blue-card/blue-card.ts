@@ -1,6 +1,6 @@
 import { LitElement, html, property, customElement, TemplateResult, CSSResult, css } from 'lit-element';
 
-import { style } from './blue-card.css';
+import { style } from './blue-card-css';
 
 @customElement('blue-card')
 export class BlueCard extends LitElement {
