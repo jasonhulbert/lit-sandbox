@@ -19,7 +19,7 @@ export class BlueDemoFrame extends LitElement {
 
     @query('.frame') frame: HTMLIFrameElement;
 
-    @property() frameLoaded: boolean;
+    private frameLoaded: boolean;
 
     static get styles(): CSSResult {
         return css`
@@ -46,35 +46,31 @@ export class BlueDemoFrame extends LitElement {
     render(): TemplateResult {
         return html`
             <div>
-                ${this.demoModule?.default?.title}
                 <iframe class="frame" src=${this.index}></iframe>
             </div>
         `;
     }
 
-    connectedCallback(): void {
-        // this.frame.addEventListener('load', this.onFrameLoad, true);
-
-        super.connectedCallback();
-    }
-
     updated(changed: PropertyValues): void {
         if (changed.has('demoModule') && this.demoModule) {
             if (this.frameLoaded === false) {
-                this.frame.addEventListener('load', this.onFrameLoad.bind(this), true);
+                this.frame.addEventListener(
+                    'load',
+                    () => {
+                        this.frameLoaded = true;
+                        this.renderDemo(this.demoModule);
+                    },
+                    true
+                );
             } else {
                 this.renderDemo(this.demoModule);
             }
         }
     }
 
-    onFrameLoad(): void {
-        this.frameLoaded = true;
-
-        this.renderDemo(this.demoModule);
-    }
-
     renderDemo(demoModule: DemoModule): void {
+        if (!this.frameLoaded) return;
+
         if (this.frame && this.frame.contentDocument) {
             console.dir(this.frame.contentDocument);
 

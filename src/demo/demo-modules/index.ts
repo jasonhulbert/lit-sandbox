@@ -1,6 +1,16 @@
-import { Demos, DemoModule } from '../types';
+import { DemoModules, DemoModule } from '../types';
 
-export default {
-    button: (): Promise<DemoModule> => import(/* webpackChunkName: "demo/blue-button.demo" */ './blue-button.demo'),
-    card: (): Promise<DemoModule> => import(/* webpackChunkName: "demo/blue-card.demo" */ './blue-card.demo')
-} as Demos;
+const demos: DemoModules = {
+    button: {
+        title: 'Button',
+        moduleLoader: (): Promise<DemoModule> =>
+            import(/* webpackChunkName: "demo/blue-button.demo" */ './blue-button.demo')
+    },
+    card: {
+        title: 'Card',
+        moduleLoader: (): Promise<DemoModule> =>
+            import(/* webpackChunkName: "demo/blue-card.demo" */ './blue-card.demo')
+    }
+};
+
+export default demos;

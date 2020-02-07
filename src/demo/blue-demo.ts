@@ -11,9 +11,8 @@ import {
 } from 'lit-element';
 import parseLocationHash from './utils/parseLocationHash';
 import demoModules from './demo-modules';
-import { DemoModule } from './types';
-import './blue-demo-frame';
-import './blue-demo-nav';
+import { DemoModules, DemoModule } from './types';
+import { BlueDemoNav } from './blue-demo-nav';
 import { BlueDemoFrame } from './blue-demo-frame';
 
 @customElement('blue-demo')
@@ -31,14 +30,41 @@ export class BlueDemo extends LitElement {
     })
     activeDemo: string;
 
+    demoModules: DemoModules;
     activeDemoModule: DemoModule;
 
     @query('blue-demo-frame') frame: BlueDemoFrame;
 
+    @query('blue-demo-nav') nav: BlueDemoNav;
+
     static get styles(): CSSResult {
         return css`
             :host {
-                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+                height: 100%;
+                align-content: center;
+            }
+
+            .nav,
+            .frame {
+                box-sizing: border-box;
+            }
+
+            .nav {
+                flex: 1 0 20%;
+                max-width: 16rem;
+                background: #ebebeb;
+                border-right: 1px solid #cccccc;
+            }
+
+            .frame {
+                flex: 1 1 80%;
             }
         `;
     }
@@ -46,18 +72,18 @@ export class BlueDemo extends LitElement {
     constructor() {
         super();
 
+        this.demoModules = demoModules;
+
         this.watchLocationHash();
     }
 
     render(): TemplateResult {
         return html`
-            <div class="wrap">
-                <div class="nav">
-                    <blue-demo-nav></blue-demo-frame>
-                </div>
-                <div class="frame">
-                    <blue-demo-frame .index="${this.frameIndex}" .demoModule="${this.activeDemoModule}"></blue-demo-frame>
-                </div>
+            <div class="nav">
+                <blue-demo-nav .demoModules="${this.demoModules}"></blue-demo-nav>
+            </div>
+            <div class="frame">
+                <blue-demo-frame .index="${this.frameIndex}" .demoModule="${this.activeDemoModule}"></blue-demo-frame>
             </div>
         `;
     }
@@ -77,11 +103,8 @@ export class BlueDemo extends LitElement {
     }
 
     async initDemoModule(demo: string): Promise<void> {
-        this.activeDemoModule = await this.loadDemoModule(demo);
+        const module = await demoModules[demo].moduleLoader();
+        this.activeDemoModule = module;
         this.frame.demoModule = this.activeDemoModule;
-    }
-
-    async loadDemoModule(demo: string): Promise<DemoModule> {
-        return await demoModules[demo]();
     }
 }

@@ -16,6 +16,8 @@ const componentEntries = {
 };
 
 const demoEntries = {
+    'demo-frame': './demo/blue-demo-frame.ts',
+    'demo-nav': './demo/blue-demo-nav.ts',
     demo: './demo/blue-demo.ts'
 };
 
@@ -26,7 +28,7 @@ module.exports = {
         context: paths.SRC,
         entry: {
             ...componentEntries,
-            ...demoEntries,
+            demo: Object.values(demoEntries),
             bundle: Object.values(componentEntries)
         },
         resolve: { extensions: ['.ts', '.js', '.json'] },

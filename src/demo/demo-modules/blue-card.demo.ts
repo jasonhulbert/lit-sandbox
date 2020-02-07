@@ -1,4 +1,5 @@
 import { html } from 'lit-html';
+import { DemoTemplate } from '../types';
 
 export default {
     title: 'Card',
@@ -8,4 +9,4 @@ export default {
     onload: (doc: Document): void => {
         console.dir(doc);
     }
-};
+} as DemoTemplate;
