@@ -5,7 +5,7 @@ import { LitElement, html, css, property, customElement, TemplateResult, CSSResu
 @customElement('blue-button')
 export class BlueButton extends LitElement {
     @property() theme = 'default';
-    @property({type: Boolean, reflect: true}) disabled = false;
+    @property({ type: Boolean, reflect: true }) disabled = false;
 
     static get styles(): CSSResult {
         // TODO: Figure out sass imports
@@ -19,9 +19,7 @@ export class BlueButton extends LitElement {
 
     render(): TemplateResult {
         return html`
-            <button
-                id="button"
-                ?disabled="${this.disabled}">
+            <button id="button" ?disabled="${this.disabled}">
                 <slot></slot>
             </button>
         `;

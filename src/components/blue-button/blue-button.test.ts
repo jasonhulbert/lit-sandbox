@@ -1,13 +1,12 @@
-
-import {BlueButton} from './blue-button';
-import {fixture, html, expect, assert } from '@open-wc/testing';
+import { BlueButton } from './blue-button';
+import { fixture, html, expect, assert } from '@open-wc/testing';
 
 const basic = html`
     <blue-button>Test</blue-button>
 `;
 
 describe('blue-button', () => {
-    let element: BlueButton; 
+    let element: BlueButton;
 
     before(async () => {
         element = await fixture(basic);
@@ -19,7 +18,7 @@ describe('blue-button', () => {
     });
 
     it('passes sanity check', () => {
-        assert.instanceOf(element, BlueButton);  
+        assert.instanceOf(element, BlueButton);
     });
 
     it('renders', async () => {
