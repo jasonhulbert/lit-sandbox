@@ -1,5 +1,6 @@
-import { LitElement, html, property, customElement, TemplateResult, CSSResult, css, unsafeCSS } from 'lit-element';
-import stylesheet from './blue-card.scss';
+import { LitElement, html, property, customElement, TemplateResult, CSSResult, css } from 'lit-element';
+
+import { style } from './blue-card.css';
 
 @customElement('blue-card')
 export class BlueCard extends LitElement {
@@ -7,7 +8,7 @@ export class BlueCard extends LitElement {
 
     static get styles(): CSSResult {
         return css`
-            ${unsafeCSS(stylesheet)}
+            ${style}
         `;
     }
 

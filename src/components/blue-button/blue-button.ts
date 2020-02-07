@@ -1,6 +1,6 @@
-import { LitElement, html, css, property, customElement, TemplateResult, CSSResult, unsafeCSS } from 'lit-element';
+import { LitElement, html, css, property, customElement, TemplateResult, CSSResult } from 'lit-element';
 
-//import stylesheet from './blue-button.scss';
+import { style } from './blue-button.css';
 
 @customElement('blue-button')
 export class BlueButton extends LitElement {
@@ -8,12 +8,8 @@ export class BlueButton extends LitElement {
     @property({ type: Boolean, reflect: true }) disabled = false;
 
     static get styles(): CSSResult {
-        // TODO: Figure out sass imports
-        // return css`
-        //     ${unsafeCSS(stylesheet.toString())}
-        // `;
         return css`
-            ${unsafeCSS(':host {}')}
+            ${style}
         `;
     }
 
