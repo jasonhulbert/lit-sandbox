@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "target": "es2017",
-      "module": "es2015",
+      "module": "esnext",
       "moduleResolution": "node",
       "lib": ["esnext.array", "esnext", "es2017", "dom"],
       "declaration": false,
@@ -16,7 +16,8 @@
       "noImplicitAny": true,
       "noImplicitThis": true,
       "outDir": "./",
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "strictPropertyInitialization": false
     },
     "include": [
       "_types/**/*.ts",
