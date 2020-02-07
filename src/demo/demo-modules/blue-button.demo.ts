@@ -6,7 +6,7 @@ export default {
     template: html`
         <blue-button>Button Example</blue-button>
     `,
-    onload: (doc: Document): void => {
-        console.dir(doc);
+    callback: (doc: Document): void => {
+        doc.querySelector('blue-button')?.addEventListener('click', () => console.log('click'));
     }
 } as DemoTemplate;

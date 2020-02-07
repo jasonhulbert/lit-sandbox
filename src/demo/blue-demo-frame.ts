@@ -1,14 +1,4 @@
-import {
-    LitElement,
-    html,
-    css,
-    customElement,
-    TemplateResult,
-    query,
-    property,
-    CSSResult,
-    PropertyValues
-} from 'lit-element';
+import { LitElement, html, css, customElement, TemplateResult, query, property, CSSResult } from 'lit-element';
 import { DemoModule } from './types';
 
 @customElement('blue-demo-frame')
@@ -19,7 +9,7 @@ export class BlueDemoFrame extends LitElement {
 
     @query('.frame') frame: HTMLIFrameElement;
 
-    private frameLoaded: boolean;
+    frameLoaded: boolean;
 
     static get styles(): CSSResult {
         return css`
@@ -51,30 +41,30 @@ export class BlueDemoFrame extends LitElement {
         `;
     }
 
-    updated(changed: PropertyValues): void {
-        if (changed.has('demoModule') && this.demoModule) {
-            if (this.frameLoaded === false) {
-                this.frame.addEventListener(
-                    'load',
-                    () => {
-                        this.frameLoaded = true;
-                        this.renderDemo(this.demoModule);
-                    },
-                    true
-                );
-            } else {
+    firstUpdated(): void {
+        this.frame.addEventListener(
+            'load',
+            () => {
+                this.frameLoaded = true;
                 this.renderDemo(this.demoModule);
-            }
-        }
+            },
+            true
+        );
+    }
+
+    updated(): void {
+        this.renderDemo(this.demoModule);
     }
 
     renderDemo(demoModule: DemoModule): void {
-        if (!this.frameLoaded) return;
+        if (!this.demoModule || !this.frameLoaded) return;
 
         if (this.frame && this.frame.contentDocument) {
-            console.dir(this.frame.contentDocument);
-
             this.frame.contentDocument.body.innerHTML = demoModule.default?.template.getHTML() as string;
+            demoModule.default?.callback.apply(demoModule.default, [
+                this.frame.contentDocument,
+                this.frame.contentWindow
+            ]);
         }
     }
 }

@@ -1,14 +1,4 @@
-import {
-    customElement,
-    LitElement,
-    TemplateResult,
-    html,
-    CSSResult,
-    css,
-    property,
-    query,
-    PropertyValues
-} from 'lit-element';
+import { customElement, LitElement, TemplateResult, html, CSSResult, css, property, query } from 'lit-element';
 import parseLocationHash from './utils/parseLocationHash';
 import demoModules from './demo-modules';
 import { DemoModules, DemoModule } from './types';
@@ -88,23 +78,25 @@ export class BlueDemo extends LitElement {
         `;
     }
 
-    firstUpdated(changed: PropertyValues): void {
-        this.activeDemo = parseLocationHash();
-        this.initDemoModule(this.activeDemo);
-
-        super.firstUpdated(changed);
+    firstUpdated(): void {
+        this.initDemoModule();
     }
 
     watchLocationHash(): void {
         window.addEventListener('hashchange', () => {
-            this.activeDemo = parseLocationHash();
-            this.initDemoModule(this.activeDemo);
+            this.initDemoModule();
         });
     }
 
-    async initDemoModule(demo: string): Promise<void> {
-        const module = await demoModules[demo].moduleLoader();
+    async initDemoModule(): Promise<void> {
+        this.activeDemo = parseLocationHash();
+
+        if (!this.activeDemo || !(this.activeDemo in this.demoModules)) return;
+
+        const module = await demoModules[this.activeDemo].moduleLoader();
+
         this.activeDemoModule = module;
-        this.frame.demoModule = this.activeDemoModule;
+
+        await this.requestUpdate();
     }
 }

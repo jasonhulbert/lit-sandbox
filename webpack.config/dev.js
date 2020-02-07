@@ -6,6 +6,8 @@ module.exports = {
     devServer: {
         contentBase: `${paths.DIST}/demo`,
         compress: true,
+        open: true,
+        openPage: 'demo',
         clientLogLevel: 'silent',
         writeToDisk: true
     },
