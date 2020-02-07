@@ -1,0 +1,163 @@
+:host {
+    display: block;
+    --entity: #0028A0;
+    --primary-blue: #009FDF;
+    --primary-green: #009775;
+    --primary-green-alternate: #008c95;
+    --primary-light-blue: #41b6e6;
+    --secondary-blue: #002e5d;
+    --secondary-green: #78be20;
+    --secondary-purple: #5c068c;
+    --neutral-black: #000000;
+    --neutral-dark-grey: #55565a;
+    --neutral-grey: #75787b;
+    --neutral-light-grey: #cac9c7;
+    --neutral-light: #f0f0f1;
+    --neutral-white: #ffffff;
+/*----------------------------------------------*/
+    --disabled-text: #8099B3;
+    --tertiary-disabled-text: #BFC9E7;
+    --label-color: #4A4A49;
+    --error-color: #BA0C2F;
+    --warning-color: #E35205;
+
+    --regular-font: "BlissPro-Regular", "Arial";
+    --bold-font: "BlissPro-Bold", "Arial";
+    --light-font: "BlissPro-Light", "Arial";
+    --medium-font: "BlissPro-Medium", "Arial";
+
+    --required-bg: #FFFBE9;
+    --disabled-bg: #E5E9F5;
+    --error-bg: #fefbfb;
+
+    --primary-border: 1px solid #0028A0;
+    --tertiary-border: 1px solid #BFC9E7;
+    --selected-border: 2px solid #009FDF;
+    --error-border: 1px solid #BA0C2F;
+
+    --icon-color-base: var(--entity);
+    --icon-color-error: var(--error-color);
+    --icon-color-success: var(--secondary-green);
+    --icon-color-warning: var(--warning-color);
+
+    --information-alert-bg: #eaedf7;
+    --success-alert-bg: #f0f8ea;
+    --warning-alert-bg: #fceee6;
+    --error-alert-bg: #f8e7eb;
+
+    --header-bg: #f2f4fa;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-family: var(--medium-font);
+    font-size: 16px;
+    color: var(--label-color);
+    letter-spacing: 0.5px;
+    line-height: 16px;
+    padding: 8px 0px 8px 0px;
+}
+
+input {
+    border: var(--tertiary-border);
+    box-sizing: border-box;
+    height: 50px;
+    padding: 0px 0px 0px 13px;
+    font-family: var(--light-font);
+    color: var(--entity);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    width: 100%;
+}
+
+input:hover {
+    border: var(--primary-border);
+}
+
+input:focus {
+    outline: none;
+    border: var(--selected-border);
+}
+
+input:required {
+    background-color: var(--required-bg);
+}
+
+input:disabled {
+    background-color: var(--disabled-bg);
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.error {
+    border: var(--error-border);
+    background-color: var(--error-bg);
+    color: var(--error-color);
+}
+
+.label-error {
+    color: var(--error-color);
+}
+
+.icon-container {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
+.validation-state-success {
+    padding-right: 45px;
+    border-color: #78be20;
+    color: #78be20;
+}
+
+.validation-state-warning {
+    padding-right: 45px;
+    border-color: #e35205;
+    color: #e35205;
+}
+
+.validation-state-error {
+    padding-right: 45px;
+    border-color: #ba0c2f;
+    color: #ba0c2f;
+}
+
+.textbox-container {
+    position: relative;
+    display: flex;
+}
+
+.countdown-container {
+    box-sizing: border-box;
+    width: 52px;
+    background: var(--disabled-bg);
+    border: var(--tertiary-border);
+    border-left: none;
+    display: flex;
+}
+
+.countdown-container > span {
+    margin: auto;
+    font-family: var(--light-font);
+}
+
+span.required {
+    margin-left: -2px;
+    color: var(--error-color);
+}
+
+blue-icon {
+    user-select: none;
+}
+
+blue-icon.icon-color-password {
+    cursor: pointer;
+    --icon-color-base: var(--tertiary-disabled-text);
+}

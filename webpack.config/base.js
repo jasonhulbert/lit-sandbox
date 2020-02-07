@@ -12,7 +12,8 @@ const paths = {
 
 const componentEntries = {
     'blue-button': './components/blue-button/blue-button.ts',
-    'blue-card': './components/blue-card/blue-card.ts'
+    'blue-card': './components/blue-card/blue-card.ts',
+    'blue-input': './components/blue-input/blue-input.ts'
 };
 
 const demoEntries = {
