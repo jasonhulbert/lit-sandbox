@@ -6,7 +6,7 @@ export default {
     template: html`
         <blue-card>Card Example</blue-card>
     `,
-    onload: (doc: Document): void => {
-        console.dir(doc);
+    callback: (win: Window, doc: Document): void => {
+        console.log(win, doc);
     }
 } as DemoTemplate;

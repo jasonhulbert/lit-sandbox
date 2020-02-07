@@ -14,5 +14,5 @@ export interface DemoModule {
 export interface DemoTemplate {
     title: string;
     template: TemplateResult;
-    onload: Function;
+    callback: Function;
 }
